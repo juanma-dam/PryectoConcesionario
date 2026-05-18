@@ -1,19 +1,22 @@
 package com.dam.modelo;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
+public abstract class Vehiculo {
 
-public class Vehiculo {
+    protected int id;
+    protected String matricula;
+    protected String marca;
+    protected String modelo;
+    protected double precio;
 
-    private int id;
-    private String matricula;
-    private String marca;
-    private String modelo;
-    private double precio;
+    public static enum tipo {NUEVO, SEGUNDAMANO};
 
-    public enum tipo {NUEVO, SEGUNDAMANO};
+    public Vehiculo() {
+        this.id = 0;
+        this.matricula = "";
+        this.marca = "";
+        this.modelo = "";
+        this.precio = 0.0;
+    }
 
     public Vehiculo(int id) {
         this.id = id;
@@ -63,49 +66,12 @@ public class Vehiculo {
         this.precio = precio;
     }
 
-//    public boolean existeVehiculo() throws Exception {
-//        String sql = "SELECT * from Vehiculos where id = ?";
-//        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
-//            pst.setInt(1, id);
-//            ResultSet rs = pst.executeQuery();
-//            return rs.next();
-//        } catch (SQLException e) {
-//            throw new Exception("Error en existeVehiculo", e);
-//        }
-//    }
-//
-//    public void altaVehiculo() throws Exception {
-//
-//        if (existeVehiculo()) {
-//            throw new Exception("El vehiculo ya existe");
-//        }
-//        String sql = "INSERT INTO Vehiculos VALUES(?, ?, ?, ?, ?)";
-//        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
-//            pst.setInt(1, id);
-//            pst.setString(2, matricula);
-//            pst.setString(3, marca);
-//            pst.setString(4, modelo);
-//            pst.setDouble(5, precio);
-//            pst.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new Exception("Error en altaVehiculo()", e);
-//        }
-//    }
-//
-//    public void bajaVehiculo() throws Exception {
-//
-//        if (!existeVehiculo()) {
-//            throw new Exception("El vehiculo no existe");
-//        }
-//        String sql = "DELERE FROM Vehiculos where id = ?";
-//        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
-//            pst.setInt(1, id);
-//            pst.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new Exception("Error en bajaVehiculo()", e);
-//        }
-//    }
-//
+    public abstract boolean existeVehiculo() throws Exception;
+
+    public abstract void altaVehiculo() throws Exception;
+
+    public abstract void bajaVehiculo() throws Exception;
+
 //    public static void listadoVehiculos(List<Vehiculo> vehiculos) throws Exception {
 //        String sql = "SELECT * FROM Vehiculos ORDER BY id";
 //        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
