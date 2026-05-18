@@ -30,6 +30,9 @@ public class ConexionBD {
                     + "tipo VARCHAR(10) NOT NULL,"
                     + "matricula VARCHAR(10),"
                     + "año INT(5),"
+                    + "autonomia INT(10) NULL,"
+                    + "electrificacion VARCHAR(25) NULL,"
+                    + "combustion VARCHAR(25) NULL,"
                     + "CONSTRAINT uk_matricula UNIQUE (matricula))";
             st.executeUpdate(sql);
             sql = "CREATE OR REPLACE TABLE Cliente ("
