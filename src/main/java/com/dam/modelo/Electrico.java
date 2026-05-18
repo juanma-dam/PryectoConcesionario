@@ -27,6 +27,7 @@ public class Electrico extends Vehiculo{
         this.autonomia = autonomia;
     }
 
+    @Override
     public boolean existeVehiculo() throws Exception {
         String sql = "SELECT * from Vehiculos where id = ?";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
@@ -38,6 +39,7 @@ public class Electrico extends Vehiculo{
         }
     }
 
+    @Override
     public void altaVehiculo() throws Exception {
 
         if (existeVehiculo()) {
@@ -56,6 +58,7 @@ public class Electrico extends Vehiculo{
         }
     }
 
+    @Override
     public void bajaVehiculo() throws Exception {
 
         if (!existeVehiculo()) {
