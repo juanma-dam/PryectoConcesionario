@@ -42,61 +42,58 @@ public class Cliente {
         this.telefono = telefono;
     }
 
-//    public boolean existeCliente() throws Exception {
-//        String sql = "SELECT * FROM clientes where dni = ?";
-//        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
-//            pst.setString(1, dni);
-//            return pst.executeQuery().next();
-//        } catch (SQLException e) {
-//            throw new Exception("Error en existeCliente()!!", e);
-//        }
-//    }
-//
-//    public void altaCliente() throws Exception {
-//        if (existeCliente()) {
-//            throw new Exception("El cliente ya existe!!");
-//        }
-//        String sql = "INSERT INTO clientes VALUES (?, ?, ?)";
-//        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
-//            pst.setString(1, dni);
-//            pst.setString(2, nombre);
-//            pst.setString(3, telefono);
-//            pst.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new Exception("Error en altaCliente()!!", e);
-//        }
-//    }
-//
-//    public void bajaCliente() throws Exception {
-//        if (!existeCliente()) {
-//            throw new Exception("El cliente no existe!!");
-//        }
-//        String sql = "DELETE FROM clientes WHERE dni = ?";
-//        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
-//            pst.setString(1, dni);
-//            pst.executeUpdate();
-//        } catch (SQLException e) {
-//            throw new Exception("Error en bajaCliente()!!", e);
-//        }
-//    }
-//
-//    public static void listadoClientes(List<Cliente> clientes) throws Exception {
-//        String sql = "SELECT * FROM clientes";
-//        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
-//            ResultSet rs = pst.executeQuery();
-//            Cliente cliente;
-//            while (rs.next()) {
-//                cliente = new Cliente();
-//                cliente.setDni(rs.getString("dni"));
-//                cliente.setNombre(rs.getString("nombre"));
-//                cliente.setTelefono(rs.getString("telefono"));
-//                clientes.add(cliente);
-//            }
-//        } catch (SQLException e) {
-//            throw new Exception("Error en listadoClientes()!!", e);
-//        }
-//    }
+    public boolean existeCliente() throws Exception {
+        String sql = "SELECT * FROM clientes where dni = ?";
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+            pst.setString(1, dni);
+            return pst.executeQuery().next();
+        } catch (SQLException e) {
+            throw new Exception("Error en existeCliente()!!", e);
+        }
+    }
 
+    public void altaCliente() throws Exception {
+        if (existeCliente()) {
+            throw new Exception("El cliente ya existe!!");
+        }
+        String sql = "INSERT INTO clientes VALUES (?, ?, ?)";
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+            pst.setString(1, dni);
+            pst.setString(2, nombre);
+            pst.setString(3, telefono);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error en altaCliente()!!", e);
+        }
+    }
 
+    public void bajaCliente() throws Exception {
+        if (!existeCliente()) {
+            throw new Exception("El cliente no existe!!");
+        }
+        String sql = "DELETE FROM clientes WHERE dni = ?";
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+            pst.setString(1, dni);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error en bajaCliente()!!", e);
+        }
+    }
 
+    public static void listadoClientes(List<Cliente> clientes) throws Exception {
+        String sql = "SELECT * FROM clientes";
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+            ResultSet rs = pst.executeQuery();
+            Cliente cliente;
+            while (rs.next()) {
+                cliente = new Cliente();
+                cliente.setDni(rs.getString("dni"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setTelefono(rs.getString("telefono"));
+                clientes.add(cliente);
+            }
+        } catch (SQLException e) {
+            throw new Exception("Error en listadoClientes()!!", e);
+        }
+    }
 }

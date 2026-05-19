@@ -29,7 +29,7 @@ public class ConexionBD {
                     + "precio DECIMAL(10,2),"
                     + "tipo VARCHAR(10) NOT NULL,"
                     + "matricula VARCHAR(10),"
-                    + "año INT(5),"
+                    + "anio INT(5),"
                     + "autonomia INT(10) NULL,"
                     + "electrificacion VARCHAR(25) NULL,"
                     + "combustion VARCHAR(25) NULL,"
