@@ -74,6 +74,14 @@ public class Vehiculo {
         this.precio = precio;
     }
 
+    public int getAnio() {
+        return anio;
+    }
+
+    public void setAnio(int anio) {
+        this.anio = anio;
+    }
+
     public boolean existeVehiculo() throws Exception {
         String sql = "SELECT * from Vehiculos where id = ?";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
@@ -83,14 +91,6 @@ public class Vehiculo {
         } catch (SQLException e) {
             throw new Exception("Error en existeVehiculo", e);
         }
-    }
-
-    public int getAnio() {
-        return anio;
-    }
-
-    public void setAnio(int anio) {
-        this.anio = anio;
     }
 
     public void altaVehiculo() throws Exception {
