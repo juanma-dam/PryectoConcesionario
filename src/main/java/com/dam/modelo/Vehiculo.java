@@ -139,6 +139,7 @@ public class Vehiculo {
                 vehiculo.setAnio(rs.getInt("anio"));
                 vehiculo.setElectrificacion(Hibrido.Electrificacion.valueOf(rs.getString("electrificacion")));
                 vehiculo.setCombustion(Gasolina.Combustion.valueOf(rs.getString("combustion")));
+                vehiculos.add(vehiculo);
             }
             pst.executeUpdate();
         } catch (SQLException e) {
