@@ -121,13 +121,14 @@ public class Vehiculo {
         if (existeVehiculo()) {
             throw new Exception("El vehiculo ya existe");
         }
-        String sql = "INSERT INTO Vehiculos VALUES(?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Vehiculos VALUES(?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setInt(1, id);
             pst.setString(2, matricula);
             pst.setString(3, marca);
             pst.setString(4, modelo);
             pst.setDouble(5, precio);
+            pst.setInt(6, anio);
             pst.executeUpdate();
         } catch (SQLException e) {
             throw new Exception("Error en altaVehiculo()", e);
