@@ -22,7 +22,7 @@ public class ConexionBD {
 
     private static void crearTablas() throws Exception {
         try (Statement st = conexionBD.createStatement()) {
-            String sql = "CREATE OR REPLACE TABLE Vehiculo ("
+            String sql = "CREATE TABLE IF NOT EXISTS Vehiculo ("
                     + "id INT PRIMARY KEY,"
                     + "marca VARCHAR(15)NOT NULL,"
                     + "modelo VARCHAR(20)NOT NULL,"
@@ -35,13 +35,13 @@ public class ConexionBD {
                     + "combustion VARCHAR(25) NULL,"
                     + "CONSTRAINT uk_matricula UNIQUE (matricula))";
             st.executeUpdate(sql);
-            sql = "CREATE OR REPLACE TABLE Cliente ("
+            sql = "CREATE TABLE IF NOT EXISTS Cliente ("
                     + "dni VARCHAR(10) PRIMARY KEY,"
                     + "nombre VARCHAR(20) NOT NULL,"
                     + "telefono VARCHAR(10),"
                     + "CONSTRAINT uk_dni UNIQUE (dni))";
             st.executeUpdate(sql);
-            sql = "CREATE TABLE Venta ("
+            sql = "CREATE TABLE IF NOT EXISTS Venta ("
                     + "idVenta INT PRIMARY KEY,"
                     + "idVehiculo INT NOT NULL,"
                     + "dniCliente VARCHAR(10) NOT NULL,"
