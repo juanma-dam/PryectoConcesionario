@@ -19,6 +19,12 @@ public class Electrico extends Vehiculo{
         this.autonomia = 0;
     }
 
+    // Constructor para rellenar los campos
+    public Electrico(int id, String marca, String modelo, double precio, int anio, int autonomia) {
+        super(id, marca, modelo, precio, anio);
+        this.autonomia = autonomia;
+    }
+
     public int getAutonomia() {
         return autonomia;
     }

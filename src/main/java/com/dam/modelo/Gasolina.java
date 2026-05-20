@@ -9,15 +9,22 @@ public class Gasolina extends Vehiculo{
 
     public static enum Combustion {GASOLINA, DIESEL};
 
-    private Combustion combustion;
+    public Combustion combustion;
 
     public Gasolina() {
         super();
         this.combustion = Combustion.GASOLINA;
     }
 
+    // Constructor para rellenar los campos
+    public Gasolina(int id, String marca, String modelo, double precio, int anio) {
+        super(id, marca, modelo, precio, anio);
+        this.combustion = Combustion.GASOLINA;
+    }
+
     public Gasolina(int id) {
         super(id);
+        this.combustion = Combustion.GASOLINA;
     }
 
     public Combustion getCombustion() {

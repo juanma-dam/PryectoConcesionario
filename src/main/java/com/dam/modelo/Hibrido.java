@@ -9,7 +9,7 @@ public class Hibrido extends Vehiculo{
 
     public static enum Electrificacion {ENCHUFABLE, NO_ENCHUFABLE};
 
-    private Electrificacion electrificacion;
+    public Electrificacion electrificacion;
 
     public Hibrido() {
         electrificacion = Electrificacion.ENCHUFABLE;
@@ -17,6 +17,13 @@ public class Hibrido extends Vehiculo{
 
     public Hibrido(int id) {
         super(id);
+        this.electrificacion = Electrificacion.ENCHUFABLE;
+    }
+
+    // Constructor para rellenar los campos
+
+    public Hibrido(int id, String marca, String modelo, double precio, int anio) {
+        super(id, marca, modelo, precio, anio);
         this.electrificacion = Electrificacion.ENCHUFABLE;
     }
 

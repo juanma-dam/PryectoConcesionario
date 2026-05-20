@@ -13,8 +13,9 @@ public class Vehiculo {
     protected String modelo;
     protected double precio;
     protected int anio;
+    public Tipo tipo;
 
-    public static enum tipo {NUEVO, SEGUNDAMANO};
+    public static enum Tipo {NUEVO, SEGUNDAMANO};
 
     public Vehiculo() {
         this.id = 0;
@@ -23,6 +24,7 @@ public class Vehiculo {
         this.modelo = "";
         this.precio = 0.0;
         this.anio = 0;
+        this.tipo = Tipo.SEGUNDAMANO;
     }
 
     public Vehiculo(int id) {
@@ -32,7 +34,20 @@ public class Vehiculo {
         this.modelo = "";
         this.precio = 0.0;
         this.anio = 0;
+        this.tipo = Tipo.SEGUNDAMANO;
    }
+
+   // Constructor para rellenar los campos
+
+    public Vehiculo(int id, String marca, String modelo, double precio, int anio) {
+        this.id = id;
+        this.matricula = "";
+        this.marca = marca;
+        this.modelo = modelo;
+        this.precio = precio;
+        this.anio = anio;
+        this.tipo = Tipo.SEGUNDAMANO;
+    }
 
     public int getId() {
         return id;
@@ -80,6 +95,14 @@ public class Vehiculo {
 
     public void setAnio(int anio) {
         this.anio = anio;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public boolean existeVehiculo() throws Exception {
