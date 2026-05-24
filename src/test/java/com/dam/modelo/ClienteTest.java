@@ -5,6 +5,9 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ClienteTest {
@@ -76,6 +79,31 @@ class ClienteTest {
         Cliente cliente2 = new Cliente();
         cliente2.setDni("");
         assertThrows(Exception.class, () -> cliente2.bajaCliente());
+    }
+
+    @Test
+    void listadoClientes() throws Exception {
+        //CASO 1: LISTA NO ESTA VACIA AL DAR DE ALTA UN CLIENTE
+        Cliente cliente = new Cliente();
+        cliente.setDni("22222222B");
+        cliente.setNombre("Pepa");
+        cliente.setTelefono("987654321");
+        cliente.altaCliente();
+        List<Cliente> clientes = new ArrayList<>();
+        Cliente.listadoClientes(clientes);
+        assertEquals(false, clientes.isEmpty());
+        clientes.clear();
+        //CASO 2: LISTA TIENE EL NUMERO CORRECTO DE CLIENTES
+        Cliente cliente2 = new Cliente();
+        cliente2.setDni("33333333C");
+        cliente2.setNombre("Ivan");
+        cliente2.setTelefono("333333333");
+        cliente2.altaCliente();
+        Cliente.listadoClientes(clientes);
+        assertEquals(2, clientes.size());
+        cliente.bajaCliente();
+        cliente2.bajaCliente();
+
     }
 
 }

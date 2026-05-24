@@ -149,11 +149,14 @@ public class Vehiculo {
                 vehiculo.setModelo(rs.getString("modelo"));
                 vehiculo.setPrecio(rs.getDouble("precio"));
                 vehiculo.setAnio(rs.getInt("anio"));
-                vehiculo.setElectrificacion(Hibrido.Electrificacion.valueOf(rs.getString("electrificacion")));
-                vehiculo.setCombustion(Gasolina.Combustion.valueOf(rs.getString("combustion")));
+                if (rs.getString("electrificacion") != null) {
+                    vehiculo.setElectrificacion(Hibrido.Electrificacion.valueOf(rs.getString("electrificacion")));
+                }
+                if (rs.getString("combustion") != null) {
+                    vehiculo.setCombustion(Gasolina.Combustion.valueOf(rs.getString("combustion")));
+                }
                 vehiculos.add(vehiculo);
             }
-            pst.executeUpdate();
         } catch (SQLException e) {
             throw new Exception("Error en bajaVehiculo()", e);
         }
