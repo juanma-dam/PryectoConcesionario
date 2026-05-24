@@ -136,17 +136,50 @@ public class Main {
                 break;
                 case 2: // Baja de Vehiculos
                 {
+                    Vehiculo vehiculo = new Vehiculo();
 
+                    System.out.println("Introduce el id del coche: ");
+                    vehiculo.setId(sc.nextInt());
+
+                    try {
+                        vehiculo.bajaVehiculo();
+                        System.out.println("Baja de vehiculo Correcta");
+                    } catch (Exception e) {
+                        System.out.println("Baja de vehiculo Incorrecta " + e.getMessage());
+                    }
                 }
                 break;
                 case 3: // Alta de Clientes
                 {
+                    Cliente cliente = new Cliente();
 
+                    System.out.println("Introduce el dni del cliente: ");
+                    cliente.setDni(sc.next());
+                    System.out.println("Introduce el nombre del cliente: ");
+                    cliente.setNombre(sc.next());
+                    System.out.println("Introduce el telefono del cliente: ");
+                    cliente.setTelefono(sc.next());
+
+                    try {
+                        cliente.altaCliente();
+                        System.out.println("Alta de cliente Correcta");
+                    } catch (Exception e) {
+                        System.out.println("Error en el alta de clientes " + e.getMessage());
+                    }
                 }
                 break;
                 case 4: // Baja de Clientes
                 {
+                    Cliente cliente = new Cliente();
+                    System.out.println("Introduce el dni del cliente: ");
+                    cliente.setDni(sc.next());
 
+                    try {
+                        cliente.bajaCliente();
+                        System.out.println("Baja de cliente Correcta");
+                    } catch (Exception e) {
+                        System.out.println("Error en el baja de clientes " + e.getMessage());
+                    }
                 }
                 break;
                 case 5: // Nueva Venta

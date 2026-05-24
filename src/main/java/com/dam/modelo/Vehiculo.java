@@ -128,7 +128,7 @@ public class Vehiculo {
         if (!existeVehiculo()) {
             throw new Exception("El vehiculo no existe");
         }
-        String sql = "DELERE FROM Vehiculos where id = ?";
+        String sql = "DELETE FROM Vehiculos where id = ?";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setInt(1, id);
             pst.executeUpdate();
