@@ -54,7 +54,7 @@ public class Main {
                     int anio_aux;
                     int prop_aux;
                     Vehiculo vehiculo = null;
-                    System.out.println("Que tipo de propulsion lleva el coche? (1:electrico, 2:hibrido, 3: gasolina");
+                    System.out.println("Que tipo de propulsion lleva el coche? (1:electrico, 2:hibrido, 3: gasolina): ");
                     opcion = sc.nextInt();
                     System.out.println("Introduce el id: ");
                     id_aux = sc.nextInt();
@@ -66,7 +66,7 @@ public class Main {
                     precio_aux = sc.nextInt();
                     System.out.println("Introduce el año: ");
                     anio_aux = sc.nextInt();
-                    System.out.println("Que tipo de coche es (1: nuevo 2: segunda mano");
+                    System.out.println("Que tipo de coche es (1: nuevo 2: segunda mano): ");
                     tipo_aux = sc.nextInt();
                     switch (opcion) {
                         case 1:
@@ -130,7 +130,7 @@ public class Main {
                         vehiculo.altaVehiculo();
                         System.out.println("Alta de vehiculo Correcta");
                     } catch (Exception e) {
-                        System.out.println("Alta de vehiculo Incorrecta");
+                        System.out.println("Alta de vehiculo Incorrecta " + e.getMessage());
                     }
                 }
                 break;

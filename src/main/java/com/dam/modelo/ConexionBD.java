@@ -22,12 +22,12 @@ public class ConexionBD {
 
     private static void crearTablas() throws Exception {
         try (Statement st = conexionBD.createStatement()) {
-            String sql = "CREATE TABLE IF NOT EXISTS Vehiculo ("
+            String sql = "CREATE TABLE IF NOT EXISTS Vehiculos ("
                     + "id INT PRIMARY KEY,"
                     + "marca VARCHAR(15)NOT NULL,"
                     + "modelo VARCHAR(20)NOT NULL,"
                     + "precio DECIMAL(10,2),"
-                    + "tipo VARCHAR(10) NOT NULL,"
+                    + "tipo VARCHAR(20) NOT NULL,"
                     + "matricula VARCHAR(10),"
                     + "anio INT(5),"
                     + "autonomia INT(10) NULL,"
@@ -35,13 +35,13 @@ public class ConexionBD {
                     + "combustion VARCHAR(25) NULL,"
                     + "CONSTRAINT uk_matricula UNIQUE (matricula))";
             st.executeUpdate(sql);
-            sql = "CREATE TABLE IF NOT EXISTS Cliente ("
+            sql = "CREATE TABLE IF NOT EXISTS Clientes ("
                     + "dni VARCHAR(10) PRIMARY KEY,"
                     + "nombre VARCHAR(20) NOT NULL,"
                     + "telefono VARCHAR(10),"
                     + "CONSTRAINT uk_dni UNIQUE (dni))";
             st.executeUpdate(sql);
-            sql = "CREATE TABLE IF NOT EXISTS Venta ("
+            sql = "CREATE TABLE IF NOT EXISTS Ventas ("
                     + "idVenta INT PRIMARY KEY,"
                     + "idVehiculo INT NOT NULL,"
                     + "dniCliente VARCHAR(10) NOT NULL,"
@@ -49,12 +49,12 @@ public class ConexionBD {
                     + "municipio VARCHAR(25) NOT NULL,"
                     + "fecha DATE NOT NULL,"
                     + "CONSTRAINT fk_vehiculo_venta FOREIGN KEY (idVehiculo)"
-                    + "REFERENCES Vehiculo (id),"
+                    + "REFERENCES Vehiculos (id),"
                     + "CONSTRAINT fk_cliente_venta FOREIGN KEY (dniCliente)"
-                    + "REFERENCES Cliente (dni))";
+                    + "REFERENCES Clientes (dni))";
             st.executeUpdate(sql);
         } catch (SQLException e) {
-            throw new Exception("Error en crearTablas");
+            throw new Exception("Error en crearTablas " + e.getMessage());
         }
     }
 

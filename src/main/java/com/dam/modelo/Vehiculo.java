@@ -19,7 +19,7 @@ public class Vehiculo {
 
     public Vehiculo() {
         this.id = 0;
-        this.matricula = "";
+        this.matricula = null;
         this.marca = "";
         this.modelo = "";
         this.precio = 0.0;
@@ -29,7 +29,7 @@ public class Vehiculo {
 
     public Vehiculo(int id) {
         this.id = id;
-        this.matricula = "";
+        this.matricula = null;
         this.marca = "";
         this.modelo = "";
         this.precio = 0.0;
@@ -41,7 +41,7 @@ public class Vehiculo {
 
     public Vehiculo(int id, String marca, String modelo, double precio, int anio) {
         this.id = id;
-        this.matricula = "";
+        this.matricula = null;
         this.marca = marca;
         this.modelo = modelo;
         this.precio = precio;
@@ -120,18 +120,6 @@ public class Vehiculo {
 
         if (existeVehiculo()) {
             throw new Exception("El vehiculo ya existe");
-        }
-        String sql = "INSERT INTO Vehiculos VALUES(?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
-            pst.setInt(1, id);
-            pst.setString(2, matricula);
-            pst.setString(3, marca);
-            pst.setString(4, modelo);
-            pst.setDouble(5, precio);
-            pst.setInt(6, anio);
-            pst.executeUpdate();
-        } catch (SQLException e) {
-            throw new Exception("Error en altaVehiculo()", e);
         }
     }
 

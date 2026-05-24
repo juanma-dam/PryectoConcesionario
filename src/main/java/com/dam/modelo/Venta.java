@@ -84,7 +84,7 @@ public class Venta {
     }
 
     public boolean existeVenta(List<Venta> ventas) throws Exception{
-        String sql = "select * from venta where id = ?";
+        String sql = "select * from ventas where id = ?";
         try(PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
@@ -96,7 +96,7 @@ public class Venta {
     }
 
     public void altaVenta(List<Venta> ventas) throws Exception{
-        String sql = "insert into venta values (?, ?, ?, ?, ?, ?)";
+        String sql = "insert into ventas values (?, ?, ?, ?, ?, ?)";
         try(PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setInt(1, id);
             pst.setInt(2, idVehiculo);
@@ -112,7 +112,7 @@ public class Venta {
     }
 
     public static void listadoVentas(List<Venta> ventas) throws Exception{
-        String sql = "select * from venta ORDER BY id";
+        String sql = "select * from ventas ORDER BY id";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
         ResultSet rs = pst.executeQuery();
         VentaListado venta;

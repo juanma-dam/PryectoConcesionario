@@ -35,17 +35,24 @@ public class Hibrido extends Vehiculo{
         this.electrificacion = electrificacion;
     }
 
-    public boolean existeVehiculo() throws Exception {
-        return super.existeVehiculo();
-    }
-
+    @Override
     public void altaVehiculo() throws Exception {
 
         super.altaVehiculo();
+        String sql = "INSERT INTO Vehiculos(id, marca, modelo, precio, tipo, matricula, anio, electrificacion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+            pst.setInt(1, id);
+            pst.setString(2, marca);
+            pst.setString(3, modelo);
+            pst.setDouble(4, precio);
+            pst.setString(5, tipo.toString());
+            pst.setString(6, matricula);
+            pst.setInt(7, anio);
+            pst.setString(8, electrificacion.toString());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error en altaVehiculo()", e);
+        }
     }
 
-    public void bajaVehiculo() throws Exception {
-
-        super.bajaVehiculo();
-    }
 }

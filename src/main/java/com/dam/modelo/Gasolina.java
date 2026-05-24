@@ -3,6 +3,7 @@ package com.dam.modelo;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.List;
 
 public class Gasolina extends Vehiculo{
@@ -35,17 +36,24 @@ public class Gasolina extends Vehiculo{
         this.combustion = combustion;
     }
 
-    public boolean existeVehiculo() throws Exception {
-        return super.existeVehiculo();
-    }
-
+    @Override
     public void altaVehiculo() throws Exception {
 
         super.altaVehiculo();
+        String sql = "INSERT INTO Vehiculos(id, marca, modelo, precio, tipo, matricula, anio, combustion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+            pst.setInt(1, id);
+            pst.setString(2, marca);
+            pst.setString(3, modelo);
+            pst.setDouble(4, precio);
+            pst.setString(5, tipo.toString());
+            pst.setString(6, matricula);
+            pst.setInt(7, anio);
+            pst.setString(8, combustion.toString());
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error en altaVehiculo()", e);
+        }
     }
 
-    public void bajaVehiculo() throws Exception {
-
-        super.bajaVehiculo();
-    }
 }
