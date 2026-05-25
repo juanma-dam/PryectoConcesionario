@@ -83,8 +83,8 @@ public class Venta {
         this.direccion = direccion;
     }
 
-    public boolean existeVenta(List<Venta> ventas) throws Exception{
-        String sql = "select * from ventas where id = ?";
+    public boolean existeVenta() throws Exception{
+        String sql = "select * from ventas where idVenta = ?";
         try(PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setInt(1, id);
             ResultSet rs = pst.executeQuery();
@@ -95,7 +95,20 @@ public class Venta {
         }
     }
 
-    public void altaVenta(List<Venta> ventas) throws Exception{
+    public void altaVenta() throws Exception{
+       if(existeVenta()) {
+           throw new Exception("Existe la venta con el id: " + id);
+       }
+       Vehiculo vehiculo = new Vehiculo();
+       vehiculo.setId(idVehiculo);
+       if (!vehiculo.existeVehiculo()){
+           throw new Exception("No existe el vehiculo con el id: " + idVehiculo);
+       }
+       Cliente cliente = new Cliente();
+       cliente.setDni(dniCliente);
+       if (!cliente.existeCliente()){
+           throw new Exception("No existe el cliente con el dni: " + dniCliente);
+       }
         String sql = "insert into ventas values (?, ?, ?, ?, ?, ?)";
         try(PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setInt(1, id);
@@ -103,7 +116,7 @@ public class Venta {
             pst.setString(3, dniCliente);
             pst.setString(4, direccion);
             pst.setString(5, municipio);
-            pst.setDate(6, Date.valueOf(fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))));
+            pst.setDate(6, Date.valueOf(fecha));
 
             pst.executeUpdate();
         } catch (SQLException e) {
@@ -112,7 +125,7 @@ public class Venta {
     }
 
     public static void listadoVentas(List<Venta> ventas) throws Exception{
-        String sql = "select * from ventas ORDER BY id";
+        String sql = "select * from ventas ORDER BY idVenta";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
         ResultSet rs = pst.executeQuery();
         VentaListado venta;

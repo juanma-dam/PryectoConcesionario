@@ -137,13 +137,14 @@ public class Vehiculo {
         }
     }
 
-    public static void listadoVehiculos(List<Vehiculo> vehiculos) throws Exception {
+    public static void listadoVehiculos(List<Vehiculo.VehiculoListado> vehiculos) throws Exception {
         String sql = "SELECT * FROM Vehiculos ORDER BY id";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             ResultSet rs = pst.executeQuery();
             VehiculoListado vehiculo;
             while (rs.next()) {
                 vehiculo = new VehiculoListado();
+                vehiculo.setId(rs.getInt("id"));
                 vehiculo.setMatricula(rs.getString("matricula"));
                 vehiculo.setMarca(rs.getString("marca"));
                 vehiculo.setModelo(rs.getString("modelo"));
@@ -155,6 +156,7 @@ public class Vehiculo {
                 if (rs.getString("combustion") != null) {
                     vehiculo.setCombustion(Gasolina.Combustion.valueOf(rs.getString("combustion")));
                 }
+                vehiculo.setAutonomia(rs.getInt("autonomia"));
                 vehiculos.add(vehiculo);
             }
         } catch (SQLException e) {
@@ -163,29 +165,29 @@ public class Vehiculo {
     }
 
     public static class VehiculoListado extends Vehiculo {
-        private int autonomia;
+        private Integer autonomia;
         private Gasolina.Combustion combustion;
         private Hibrido.Electrificacion electrificacion;
 
         public VehiculoListado() {
             super();
             autonomia = 0;
-            electrificacion = Hibrido.Electrificacion.ENCHUFABLE;
-            combustion = Gasolina.Combustion.GASOLINA;
+            electrificacion = null;
+            combustion = null;
         }
 
         public VehiculoListado(int id) {
             super(id);
             this.autonomia = 0;
-            this.electrificacion = Hibrido.Electrificacion.ENCHUFABLE;
-            this.combustion = Gasolina.Combustion.GASOLINA;
+            this.electrificacion = null;
+            this.combustion = null;
         }
 
-        public int getAutonomia() {
+        public Integer getAutonomia() {
             return autonomia;
         }
 
-        public void setAutonomia(int autonomia) {
+        public void setAutonomia(Integer autonomia) {
             this.autonomia = autonomia;
         }
 

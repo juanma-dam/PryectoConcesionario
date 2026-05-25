@@ -17,14 +17,14 @@ public class Hibrido extends Vehiculo{
 
     public Hibrido(int id) {
         super(id);
-        this.electrificacion = Electrificacion.ENCHUFABLE;
+        this.electrificacion = null;
     }
 
     // Constructor para rellenar los campos
 
     public Hibrido(int id, String marca, String modelo, double precio, int anio) {
         super(id, marca, modelo, precio, anio);
-        this.electrificacion = Electrificacion.ENCHUFABLE;
+        this.electrificacion = null;
     }
 
     public Electrificacion getElectrificacion() {

@@ -132,7 +132,7 @@ class VehiculoTest {
         electrico.setAutonomia(650);
         electrico.setTipo(Vehiculo.Tipo.NUEVO);
         electrico.altaVehiculo();
-        List<Vehiculo> vehiculos = new ArrayList<>();
+        List<Vehiculo.VehiculoListado> vehiculos = new ArrayList<>();
         Vehiculo.listadoVehiculos(vehiculos);
         assertEquals(false, vehiculos.isEmpty());
         //CASO 2: LISTA TIENE EL NUMERO CORRECTO DE VEHICULOS

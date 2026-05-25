@@ -14,18 +14,18 @@ public class Gasolina extends Vehiculo{
 
     public Gasolina() {
         super();
-        this.combustion = Combustion.GASOLINA;
+        this.combustion = null;
     }
 
     // Constructor para rellenar los campos
     public Gasolina(int id, String marca, String modelo, double precio, int anio) {
         super(id, marca, modelo, precio, anio);
-        this.combustion = Combustion.GASOLINA;
+        this.combustion = null;
     }
 
     public Gasolina(int id) {
         super(id);
-        this.combustion = Combustion.GASOLINA;
+        this.combustion = null;
     }
 
     public Combustion getCombustion() {

@@ -3,6 +3,9 @@ package com.dam.vista;
 
 import com.dam.modelo.*;
 
+import java.sql.SQLOutput;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -29,6 +32,9 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int op;
+        List<Vehiculo.VehiculoListado> vehiculos = new ArrayList<>();
+        List<Cliente> clientes = new ArrayList<>();
+        List<Venta> ventas = new ArrayList<>();
 
         try {
             System.out.println("Cargando Base de datos...");
@@ -184,17 +190,65 @@ public class Main {
                 break;
                 case 5: // Nueva Venta
                 {
+                    Venta venta = new Venta();
+
+                    System.out.println("Introduce el id de la venta: ");
+                    venta.setId(sc.nextInt());
+                    System.out.println("Introduce el id del vehiculo: ");
+                    venta.setIdVehiculo(sc.nextInt());
+                    System.out.println("Introduce el dni del cliente: ");
+                    venta.setDniCliente(sc.next());
+                    System.out.println("Introduce la direccion del cliente: ");
+                    venta.setDireccion(sc.next());
+                    System.out.println("Introduce el municipio del cliente: ");
+                    venta.setMunicipio(sc.next());
+
+                    try {
+                        venta.altaVenta();
+                        System.out.println("Alta de venta Correcta");
+                    } catch (Exception e) {
+                        System.out.println("Error en el alta de ventas " + e.getMessage());
+                    }
+
 
                 }
                 break;
                 case 6: // Listado de Vehiculos
                 {
 
+                    System.out.println("LISTADO DE VEHICULOS");
+                    System.out.println("-------------------------");
+                    System.out.println();
+                    try {
+                        Vehiculo.listadoVehiculos(vehiculos);
+                        for (Vehiculo.VehiculoListado vehiculo : vehiculos) {
+
+                            System.out.printf("ID: %d MARCA: %s MODELO: %s PRECIO: %.2f TIPO: %s MATRICULA: %s ANIO: %d AUTONOMIA: %d ELECTRIFICACION: %s COMBUSTION: %s\n", vehiculo.getId(), vehiculo.getMarca(), vehiculo.getModelo(), vehiculo.getPrecio(),
+                                    vehiculo.getTipo().toString(), (vehiculo.getMatricula() == null) ? "" : vehiculo.getMatricula(), vehiculo.getAnio(), (vehiculo.getAutonomia() == null) ? 0: vehiculo.getAutonomia(), (vehiculo.getElectrificacion() == null) ? "" : vehiculo.getElectrificacion(), (vehiculo.getCombustion() == null) ? "" : vehiculo.getCombustion());
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error en el listado de vehiculos " + e.getMessage());
+                    }
+
+                    vehiculos.clear();
+
                 }
                 break;
                 case 7: // Listado de Clientes
                 {
+                    System.out.println("LISTADO DE CLIENTES");
+                    System.out.println("-------------------------");
+                    System.out.println();
+                    try {
+                        Cliente.listadoClientes(clientes);
+                        for (Cliente cliente : clientes) {
 
+                            System.out.printf("DNI: %s NOMBRE: %s TELEFONO: %s\n", cliente.getDni(), cliente.getNombre(), cliente.getTelefono());
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error en el listado de clientes " + e.getMessage());
+                    }
+                    clientes.clear();
                 }
                 break;
                 case 8: // Registro de Ventas
