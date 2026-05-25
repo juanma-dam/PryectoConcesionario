@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,10 @@ class ClienteTest {
     @BeforeEach
     void setUp() throws Exception {
     ConexionBD.abrirConexion();
+
+        try(Statement st = ConexionBD.getConexionBD().createStatement()) {
+            st.executeUpdate("DELETE FROM VEHICULOS");
+        }
     }
     @AfterEach
     void tearDown() throws Exception {
@@ -53,10 +58,11 @@ class ClienteTest {
         cliente.setNombre("Pepe");
         cliente.setTelefono("111111111");
         assertThrows(Exception.class, () -> cliente.altaCliente());
-        //CASO 3: ALTA INCORRECTA POR FALTA DE RELLENAR EL NUMERO
+        //CASO 3: ALTA INCORRECTA POR PONER NOMBRE NULO
         Cliente cliente1 = new Cliente();
         cliente1.setDni("12345678A");
         cliente1.setTelefono("123456789");
+        cliente1.setNombre(null);
         assertThrows(Exception.class, () -> cliente1.altaCliente());
         //LIMPIEZA TABLA
         cliente.bajaCliente();

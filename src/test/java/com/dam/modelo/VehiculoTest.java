@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,10 @@ class VehiculoTest {
     @BeforeEach
     void setUp() throws Exception{
         ConexionBD.abrirConexion();
+
+        try(Statement st = ConexionBD.getConexionBD().createStatement()) {
+            st.executeUpdate("DELETE FROM VEHICULOS");
+        }
     }
 
     @AfterEach
