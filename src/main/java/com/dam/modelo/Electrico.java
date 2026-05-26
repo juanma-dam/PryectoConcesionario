@@ -39,7 +39,7 @@ public class Electrico extends Vehiculo{
 
         super.altaVehiculo();
 
-        String sql = "INSERT INTO Vehiculos(id, marca, modelo, precio, tipo, matricula, anio, autonomia) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Vehiculos(id, marca, modelo, precio, tipo, matricula, anio, autonomia, vendido) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setInt(1, id);
             pst.setString(2, marca);
@@ -49,6 +49,7 @@ public class Electrico extends Vehiculo{
             pst.setString(6, matricula);
             pst.setInt(7, anio);
             pst.setInt(8, autonomia);
+            pst.setInt(9, 0);
             pst.executeUpdate();
         } catch (SQLException e) {
             throw new Exception("Error en altaVehiculo()", e);

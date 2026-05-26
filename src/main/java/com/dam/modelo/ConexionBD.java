@@ -33,6 +33,7 @@ public class ConexionBD {
                     + "autonomia INT(10) NULL,"
                     + "electrificacion VARCHAR(25) NULL,"
                     + "combustion VARCHAR(25) NULL,"
+                    + "vendido BOOLEAN NOT NULL,"
                     + "CONSTRAINT uk_matricula UNIQUE (matricula))";
             st.executeUpdate(sql);
             sql = "CREATE TABLE IF NOT EXISTS Clientes ("

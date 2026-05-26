@@ -40,7 +40,7 @@ public class Gasolina extends Vehiculo{
     public void altaVehiculo() throws Exception {
 
         super.altaVehiculo();
-        String sql = "INSERT INTO Vehiculos(id, marca, modelo, precio, tipo, matricula, anio, combustion) VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Vehiculos(id, marca, modelo, precio, tipo, matricula, anio, combustion, vendido) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setInt(1, id);
             pst.setString(2, marca);
@@ -50,6 +50,7 @@ public class Gasolina extends Vehiculo{
             pst.setString(6, matricula);
             pst.setInt(7, anio);
             pst.setString(8, combustion.toString());
+            pst.setInt(9, 0);
             pst.executeUpdate();
         } catch (SQLException e) {
             throw new Exception("Error en altaVehiculo()", e);

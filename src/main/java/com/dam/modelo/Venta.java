@@ -109,8 +109,13 @@ public class Venta {
        if (!cliente.existeCliente()){
            throw new Exception("No existe el cliente con el dni: " + dniCliente);
        }
+       if (verificarEstado()) {
+           throw new Exception("El coche ha sido vendido");
+       }
         String sql = "insert into ventas values (?, ?, ?, ?, ?, ?)";
-        try(PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+       String sql2 = "update vehiculos set vendido = ? where id = ?";
+        try(PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql); PreparedStatement pst2 = ConexionBD.getConexionBD().prepareStatement(sql2)) {
+            ConexionBD.getConexionBD().setAutoCommit(false);
             pst.setInt(1, id);
             pst.setInt(2, idVehiculo);
             pst.setString(3, dniCliente);
@@ -119,25 +124,38 @@ public class Venta {
             pst.setDate(6, Date.valueOf(fecha));
 
             pst.executeUpdate();
+
+            pst2.setInt(1, 1);
+            pst2.setInt(2, idVehiculo);
+            pst2.executeUpdate();
+            ConexionBD.getConexionBD().commit();
         } catch (SQLException e) {
+            ConexionBD.getConexionBD().rollback();
             throw new Exception("Error en el altaVenta!!!");
+        } finally {
+            ConexionBD.getConexionBD().setAutoCommit(true);
         }
     }
 
-    public static void listadoVentas(List<Venta> ventas) throws Exception{
-        String sql = "select * from ventas ORDER BY idVenta";
+    public static void listadoVentas(List<Venta.VentaListado> ventas) throws Exception{
+        String sql = "select idVenta, idVehiculo, dniCliente, direccion, municipio, fecha, marca, modelo, matricula, precio, nombre from vehiculos v join ventas on id = idVehiculo join clientes on dni = dniCliente ORDER BY idVenta";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
         ResultSet rs = pst.executeQuery();
         VentaListado venta;
         while(rs.next()) {
             venta = new VentaListado();
 
-            venta.setId(rs.getInt("id"));
+            venta.setId(rs.getInt("idVenta"));
             venta.setIdVehiculo(rs.getInt("idVehiculo"));
             venta.setDniCliente(rs.getString("dniCliente"));
             venta.setDireccion(rs.getString("direccion"));
             venta.setMunicipio(rs.getString("municipio"));
-            venta.setFecha(rs.getDate("fecha").toString());
+            venta.setFecha(rs.getDate("fecha").toLocalDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+            venta.setMarca(rs.getString("marca"));
+            venta.setModelo(rs.getString("modelo"));
+            venta.setMatricula(rs.getString("matricula"));
+            venta.setPrecio(rs.getDouble("precio"));
+            venta.setNombre(rs.getString("nombre"));
 
             ventas.add(venta);
         }
@@ -147,36 +165,75 @@ public class Venta {
         }
     }
 
-    public Vehiculo getVehiculo(List<Vehiculo> vehiculos) throws Exception{
+    public boolean obtenerMatricula() throws Exception{
 
-        for (Vehiculo vehiculo : vehiculos) {
-            if(vehiculo.getId() == idVehiculo) {
-                return vehiculo;
+        String sql = "select tipo from vehiculos where id = ?";
+        String tipo;
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+
+            pst.setInt(1, idVehiculo);
+
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                tipo = rs.getString("tipo");
+                if (tipo.equals(Vehiculo.Tipo.NUEVO.toString())) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
+        } catch (SQLException e) {
+            throw new Exception("Error en el getMatricula!!!");
         }
-        return null;
+
+        return false;
     }
 
-    public Cliente getCliente(List<Cliente> clientes) throws Exception{
-        for (Cliente cliente : clientes) {
-            if (cliente.getDni().equals(dniCliente)) {
-                return cliente;
-            }
+    public void modificarMatricula(String matricula) throws Exception {
+        String sql = "update vehiculos set matricula = ? where id = ?";
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+            pst.setString(1, matricula);
+            pst.setInt(2, idVehiculo);
+            pst.executeUpdate();
+        } catch (SQLException e) {
+            throw new Exception("Error en el modificarMatricula!!!");
         }
-        return null;
+    }
+
+    public boolean verificarEstado() throws Exception {
+        String sql = "select vendido from vehiculos where id = ?";
+        int vendido;
+        try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
+            pst.setInt(1, idVehiculo);
+            ResultSet rs = pst.executeQuery();
+            if (rs.next()) {
+                vendido = rs.getInt("vendido");
+                if (vendido == 1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            throw new Exception("Error en el verificarEstado!!!");
+        }
+        return false;
     }
 
     public static class VentaListado extends Venta {
         private String marca;
         private String modelo;
+        private String matricula;
         private String nombre;
         private double precio;
 
         public VentaListado() {
+            super();
             marca = "";
             modelo = "";
             nombre = "";
             precio = 0;
+            matricula = "";
         }
 
         public VentaListado(int id) {
@@ -185,6 +242,47 @@ public class Venta {
             this.modelo = "";
             this.nombre = "";
             this.precio = 0;
+            this.matricula = "";
+        }
+
+        public String getMarca() {
+            return marca;
+        }
+
+        public void setMarca(String marca) {
+            this.marca = marca;
+        }
+
+        public String getModelo() {
+            return modelo;
+        }
+
+        public void setModelo(String modelo) {
+            this.modelo = modelo;
+        }
+
+        public String getMatricula() {
+            return matricula;
+        }
+
+        public void setMatricula(String matricula) {
+            this.matricula = matricula;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public double getPrecio() {
+            return precio;
+        }
+
+        public void setPrecio(double precio) {
+            this.precio = precio;
         }
     }
 }

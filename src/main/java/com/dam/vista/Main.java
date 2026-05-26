@@ -34,7 +34,7 @@ public class Main {
         int op;
         List<Vehiculo.VehiculoListado> vehiculos = new ArrayList<>();
         List<Cliente> clientes = new ArrayList<>();
-        List<Venta> ventas = new ArrayList<>();
+        List<Venta.VentaListado> ventas = new ArrayList<>();
 
         try {
             System.out.println("Cargando Base de datos...");
@@ -192,10 +192,20 @@ public class Main {
                 {
                     Venta venta = new Venta();
 
+
                     System.out.println("Introduce el id de la venta: ");
                     venta.setId(sc.nextInt());
                     System.out.println("Introduce el id del vehiculo: ");
                     venta.setIdVehiculo(sc.nextInt());
+                    try {
+                        if (venta.obtenerMatricula()) {
+                            System.out.println("Introduce la matricula del vehiculo: ");
+                            String matricula = sc.next();
+                            venta.modificarMatricula(matricula);
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error en obtener la matricula del vehiculo " + e.getMessage());
+                    }
                     System.out.println("Introduce el dni del cliente: ");
                     venta.setDniCliente(sc.next());
                     System.out.println("Introduce la direccion del cliente: ");
@@ -223,8 +233,9 @@ public class Main {
                         Vehiculo.listadoVehiculos(vehiculos);
                         for (Vehiculo.VehiculoListado vehiculo : vehiculos) {
 
-                            System.out.printf("ID: %d MARCA: %s MODELO: %s PRECIO: %.2f TIPO: %s MATRICULA: %s ANIO: %d AUTONOMIA: %d ELECTRIFICACION: %s COMBUSTION: %s\n", vehiculo.getId(), vehiculo.getMarca(), vehiculo.getModelo(), vehiculo.getPrecio(),
-                                    vehiculo.getTipo().toString(), (vehiculo.getMatricula() == null) ? "" : vehiculo.getMatricula(), vehiculo.getAnio(), (vehiculo.getAutonomia() == null) ? 0: vehiculo.getAutonomia(), (vehiculo.getElectrificacion() == null) ? "" : vehiculo.getElectrificacion(), (vehiculo.getCombustion() == null) ? "" : vehiculo.getCombustion());
+                            System.out.printf("ID: %d MARCA: %s MODELO: %s PRECIO: %.2f TIPO: %s MATRICULA: %s ANIO: %d AUTONOMIA: %d ELECTRIFICACION: %s COMBUSTION: %s VENDIDO: %s\n", vehiculo.getId(), vehiculo.getMarca(), vehiculo.getModelo(), vehiculo.getPrecio(),
+                                    vehiculo.getTipo().toString(), (vehiculo.getMatricula() == null) ? "" : vehiculo.getMatricula(), vehiculo.getAnio(), (vehiculo.getAutonomia() == null) ? 0: vehiculo.getAutonomia(), (vehiculo.getElectrificacion() == null) ? "" : vehiculo.getElectrificacion(), (vehiculo.getCombustion() == null) ? "" : vehiculo.getCombustion(),
+                                    (vehiculo.isVendido()) ? "Si" : "No");
                         }
                     } catch (Exception e) {
                         System.out.println("Error en el listado de vehiculos " + e.getMessage());
@@ -253,7 +264,19 @@ public class Main {
                 break;
                 case 8: // Registro de Ventas
                 {
-
+                    System.out.println("REGISTRO DE VENTAS");
+                    System.out.println("-------------------------");
+                    System.out.println();
+                    try {
+                        Venta.listadoVentas(ventas);
+                        for (Venta.VentaListado venta : ventas) {
+                            System.out.printf("ID: %d FECHA: %s IDVEHICULO: %d MARCA: %s MODELO: %s MATRICULA: %s PRECIO: %.2f DNI: %s NOMBRE: %s DIRECCION: %s MUNICIPIO: %s\n", venta.getId()
+                            , venta.getFecha(), venta.getIdVehiculo(), venta.getMarca(), venta.getModelo(), venta.getMatricula(), venta.getPrecio(), venta.getDniCliente(), venta.getNombre(), venta.getDireccion(), venta.getMunicipio());
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Error en el registro de ventas " + e.getMessage());
+                    }
+                    ventas.clear();
                 }
                 break;
                 case 0: // Salir

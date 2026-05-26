@@ -157,6 +157,7 @@ public class Vehiculo {
                     vehiculo.setCombustion(Gasolina.Combustion.valueOf(rs.getString("combustion")));
                 }
                 vehiculo.setAutonomia(rs.getInt("autonomia"));
+                vehiculo.setVendido(rs.getBoolean("vendido"));
                 vehiculos.add(vehiculo);
             }
         } catch (SQLException e) {
@@ -168,12 +169,15 @@ public class Vehiculo {
         private Integer autonomia;
         private Gasolina.Combustion combustion;
         private Hibrido.Electrificacion electrificacion;
+        private boolean vendido;
 
         public VehiculoListado() {
             super();
             autonomia = 0;
             electrificacion = null;
             combustion = null;
+            vendido = false;
+
         }
 
         public VehiculoListado(int id) {
@@ -181,6 +185,7 @@ public class Vehiculo {
             this.autonomia = 0;
             this.electrificacion = null;
             this.combustion = null;
+            this.vendido = false;
         }
 
         public Integer getAutonomia() {
@@ -205,6 +210,14 @@ public class Vehiculo {
 
         public void setElectrificacion(Hibrido.Electrificacion electrificacion) {
             this.electrificacion = electrificacion;
+        }
+
+        public boolean isVendido() {
+            return vendido;
+        }
+
+        public void setVendido(boolean vendido) {
+            this.vendido = vendido;
         }
     }
 }
