@@ -5,6 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * CLASE ELECTRICO<br>
+ * Para vehículos electricos
+ * {@inheritDoc}
+ * @see com.dam.modelo.Vehiculo Clase vehículo
+ */
 public class Electrico extends Vehiculo{
 
     private int autonomia;

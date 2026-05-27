@@ -7,6 +7,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * CLASE VEHICULO<br>
+ * Modelo de datos y métodos CRUD
+ *
+ * @author Iván Álvarez
+ * @author Juan Manuel Sanabria Mamani
+ * @author Alfonso Marín Navarro
+ * @version 1.0
+ * @since 27/05/2026
+ */
 public class Vehiculo {
 
     protected int id;
@@ -170,6 +180,11 @@ public class Vehiculo {
         }
     }
 
+    /**
+     * Clase interna para el listado de vehículos
+     * {@inheritDoc}
+     * @see com.dam.modelo.Vehiculo#listadoVehiculos(List)
+     */
     public static class VehiculoListado extends Vehiculo {
         private Integer autonomia;
         private Gasolina.Combustion combustion;

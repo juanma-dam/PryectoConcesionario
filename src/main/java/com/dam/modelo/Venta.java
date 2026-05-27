@@ -10,6 +10,16 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * CLASE VENTA<br>
+ * Modelo de datos y métidos CRUD
+ *
+ * @author Iván Álvarez
+ * @author Juan Manuel Sanabria Mamani
+ * @author Alfonso Marín Navarro
+ * @version 1.0
+ * @since 27/05/2026
+ */
 public class Venta {
 
     private int id;
@@ -97,6 +107,11 @@ public class Venta {
         }
     }
 
+    /**
+     * Método de alta de venta en una base de datos<br>
+     * @throws Exception Control de errores
+     * @see Venta#verificarEstado() Verifica el estado del coche
+     */
     public void altaVenta() throws Exception{
        if(existeVenta()) {
            throw new Exception("Existe la venta con el id: " + id);
@@ -139,6 +154,11 @@ public class Venta {
         }
     }
 
+    /**
+     * Método para obtener un registro de todas las ventas<br>
+     * @param ventas Lista donde añadir las ventas desde la base de datos
+     * @throws Exception Control de errores
+     */
     public static void listadoVentas(List<Venta.VentaListado> ventas) throws Exception{
         String sql = "select idVenta, idVehiculo, dniCliente, direccion, municipio, fecha, marca, modelo, matricula, precio, nombre from vehiculos v join ventas on id = idVehiculo join clientes on dni = dniCliente ORDER BY idVenta";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
@@ -167,7 +187,7 @@ public class Venta {
         }
     }
 
-    public boolean obtenerMatricula() throws Exception{
+    public boolean obtenerTipo() throws Exception{
 
         String sql = "select tipo from vehiculos where id = ?";
         String tipo;
@@ -191,6 +211,13 @@ public class Venta {
         return false;
     }
 
+    /**
+     * modifica la matricula para los vehiculos nuevos
+     * Validaciones: {@link com.dam.vista.Auxiliar#verificarMatricula(String) Matricula}
+     * @param matricula String para modificar la matricula de la base de datos
+     * @throws Exception Control de errores
+     * @see com.dam.vista.Auxiliar#verificarMatricula(String) Validación de Matricula
+     */
     public void modificarMatricula(String matricula) throws Exception {
         if (!Auxiliar.verificarMatricula(matricula)) {
             throw new Exception("Matricula incorrecta!!!");
@@ -225,6 +252,11 @@ public class Venta {
         return false;
     }
 
+    /**
+     * Clase Interna para el listado de ventas
+     * {@inheritDoc}
+     * @see com.dam.modelo.Venta#listadoVentas(List)
+     */
     public static class VentaListado extends Venta {
         private String marca;
         private String modelo;

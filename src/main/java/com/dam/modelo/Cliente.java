@@ -8,15 +8,38 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * CLASE CLIENTE<br>
+ * Modelo de datos y métodos CRUD
+ *
+ * @author Iván Álvarez
+ * @author Juan Manuel Sanabria Mamani
+ * @author Alfonso Marín Navarro
+ * @version 1.0
+ * @since 27/05/2026
+ */
 public class Cliente {
     private String dni;
     private String nombre;
     private String telefono;
 
+    /**
+     * Constructor básico
+     */
     public Cliente() {
         dni = "";
         nombre = "";
         telefono = "";
+    }
+
+    /**
+     * Constructor sobrecargado por clave primaria
+     * @param dni String con el dni del alumno
+     */
+    public Cliente(String dni) {
+        this.dni = dni;
+        this.nombre = "";
+        this.telefono = "";
     }
 
     public String getDni() {
@@ -53,6 +76,11 @@ public class Cliente {
         }
     }
 
+    /**
+     * Método de alta de un cliente en una base de datos<br>
+     * Validaciones: {@link com.dam.vista.Auxiliar#verificarDni(String) DNI}
+     * @throws Exception Control de errores
+     */
     public void altaCliente() throws Exception {
         if (existeCliente()) {
             throw new Exception("El cliente ya existe!!");
@@ -71,6 +99,10 @@ public class Cliente {
         }
     }
 
+    /**
+     * Método de baja de un cliente en una base de datos<br>
+     * @throws Exception Control de errores
+     */
     public void bajaCliente() throws Exception {
         if (!existeCliente()) {
             throw new Exception("El cliente no existe!!");
@@ -84,6 +116,11 @@ public class Cliente {
         }
     }
 
+    /**
+     * Método para obtener un listado de todos los clientes dados de alta<br>
+     * @param clientes Lista donde añadir a los clientes de la base de datos
+     * @throws Exception Control de errores
+     */
     public static void listadoClientes(List<Cliente> clientes) throws Exception {
         String sql = "SELECT * FROM clientes";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {

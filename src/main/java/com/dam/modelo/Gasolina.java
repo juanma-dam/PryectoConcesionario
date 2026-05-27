@@ -6,6 +6,12 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.List;
 
+/**
+ * CLASE GASOLINA<br>
+ * Para vehículos de Combustion
+ * {@inheritDoc}
+ * @see com.dam.modelo.Vehiculo Clase vehículo
+ */
 public class Gasolina extends Vehiculo{
 
     public static enum Combustion {GASOLINA, DIESEL};

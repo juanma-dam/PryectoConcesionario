@@ -8,6 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/**
+ * MINI PROYECTO DE GESTION DE UN CONCESIONARIO
+ *
+ * @author Iván Álvarez
+ * @author Juan Manuel Sanabria Mamani
+ * @author Alfonso Marín Navarro
+ * @version 1.0
+ * @since 27/05/2026
+ */
 public class Main {
 
     public static void mostrarMenu() {
@@ -185,7 +194,7 @@ public class Main {
                     System.out.println("Introduce el id del vehiculo: ");
                     venta.setIdVehiculo(sc.nextInt());
                     try {
-                        if (venta.obtenerMatricula()) {
+                        if (venta.obtenerTipo()) {
                             System.out.println("Introduce la matricula del vehiculo: ");
                             String matricula = sc.next();
                             venta.modificarMatricula(matricula);

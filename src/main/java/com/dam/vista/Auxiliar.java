@@ -1,7 +1,22 @@
 package com.dam.vista;
 
+/**
+ * CLASE AUXILIAR<br>
+ * Métodos de apoyo al proyecto (validaciones)
+ *
+ * @author Iván Álvarez
+ * @author Juan Manuel Sanabria Mamani
+ * @author Alfonso Marín Navarro
+ * @version 1.0
+ * @since 27/05/2026
+ */
 public class Auxiliar {
 
+    /**
+     * Método de validación de un DNI
+     * @param dni String a validar
+     * @return Devuelve true si el DNI es correcto o false en otro caso
+     */
     public static boolean verificarDni(String dni) {
         if (dni == null || dni.length() != 9) {
             return false;
@@ -20,6 +35,11 @@ public class Auxiliar {
         return Character.isLetter(dni.charAt(8));
     }
 
+    /**
+     * Método de validación de una Matricula
+     * @param matricula String a validar
+     * @return Devuelve true si la matricula es correcto o false en otro caso
+     */
     public static boolean verificarMatricula(String matricula) {
         if (matricula == null || matricula.length() != 7) {
             return false;

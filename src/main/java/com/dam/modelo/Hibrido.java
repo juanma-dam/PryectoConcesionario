@@ -5,6 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * CLASE HIBRIDO<br>
+ * Para vehículos Hibridos
+ * {@inheritDoc}
+ * @see com.dam.modelo.Vehiculo Clase vehículo
+ */
 public class Hibrido extends Vehiculo{
 
     public static enum Electrificacion {ENCHUFABLE, NO_ENCHUFABLE};

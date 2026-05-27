@@ -8,6 +8,16 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
+/**
+ * CLASE CONEXIONBD<br>
+ * Métodos para el control de la base de datos
+ *
+ * @author Iván Álvarez
+ * @author Juan Manuel Sanabria Mamani
+ * @author Alfonso Marín Navarro
+ * @version 1.0
+ * @since 27/05/2026
+ */
 public class ConexionBD {
 
     private static Connection conexionBD;
@@ -59,6 +69,10 @@ public class ConexionBD {
         }
     }
 
+    /**
+     * Método para abrir conexion con la base de datos
+     * @throws Exception Control de errores
+     */
     public static void abrirConexion() throws Exception {
 
         try (FileInputStream fis = new FileInputStream("dbproperties.txt")) {
@@ -76,6 +90,10 @@ public class ConexionBD {
         }
     }
 
+    /**
+     * Método para cerrar conexion con la base de datos
+     * @throws Exception Control de errores
+     */
     public static void cerrarConexion() throws Exception {
 
         try {
