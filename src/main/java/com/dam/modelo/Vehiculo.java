@@ -1,5 +1,7 @@
 package com.dam.modelo;
 
+import com.dam.vista.Auxiliar;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -120,6 +122,9 @@ public class Vehiculo {
 
         if (existeVehiculo()) {
             throw new Exception("El vehiculo ya existe");
+        }
+        if (!Auxiliar.verificarMatricula(matricula)) {
+            throw new Exception("Matricula incorrecta");
         }
     }
 

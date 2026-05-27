@@ -80,13 +80,6 @@ public class Main {
                             System.out.println("Introduce la autonomia del coche: ");
                              vehiculo = new Electrico(id_aux, marca_aux, modelo_aux, precio_aux, anio_aux, sc.nextInt());
 
-                            if (tipo_aux == 1) {
-                                vehiculo.setTipo(Vehiculo.Tipo.NUEVO);
-                            } else {
-                                vehiculo.setTipo(Vehiculo.Tipo.SEGUNDAMANO);
-                                System.out.println("Introduce la matricula del coche: ");
-                                vehiculo.setMatricula(sc.next());
-                            }
                         }
                         break;
                         case 2:
@@ -101,13 +94,6 @@ public class Main {
                                 ((Hibrido)vehiculo).setElectrificacion(Hibrido.Electrificacion.NO_ENCHUFABLE);
                             }
 
-                            if (tipo_aux == 1) {
-                                vehiculo.setTipo(Vehiculo.Tipo.NUEVO);
-                            } else {
-                                vehiculo.setTipo(Vehiculo.Tipo.SEGUNDAMANO);
-                                System.out.println("Introduce la matricula del coche: ");
-                                vehiculo.setMatricula(sc.next());
-                            }
                         }
                         break;
                         case 3:
@@ -121,15 +107,16 @@ public class Main {
                                 ((Gasolina)vehiculo).setCombustion(Gasolina.Combustion.DIESEL);
                             }
 
-                            if (tipo_aux == 1) {
-                                vehiculo.setTipo(Vehiculo.Tipo.NUEVO);
-                            } else {
-                                vehiculo.setTipo(Vehiculo.Tipo.SEGUNDAMANO);
-                                System.out.println("Introduce la matricula del coche: ");
-                                vehiculo.setMatricula(sc.next());
-                            }
                         }
                         break;
+                    }
+
+                    if (tipo_aux == 1) {
+                        vehiculo.setTipo(Vehiculo.Tipo.NUEVO);
+                    } else {
+                        vehiculo.setTipo(Vehiculo.Tipo.SEGUNDAMANO);
+                        System.out.println("Introduce la matricula del coche: ");
+                        vehiculo.setMatricula(sc.next());
                     }
 
                     try {

@@ -1,6 +1,7 @@
 package com.dam.modelo;
 
 import com.dam.modelo.ConexionBD;
+import com.dam.vista.Auxiliar;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -55,6 +56,9 @@ public class Cliente {
     public void altaCliente() throws Exception {
         if (existeCliente()) {
             throw new Exception("El cliente ya existe!!");
+        }
+        if (!Auxiliar.verificarDni(dni)) {
+            throw new Exception("El dni es incorrecto");
         }
         String sql = "INSERT INTO clientes VALUES (?, ?, ?)";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {

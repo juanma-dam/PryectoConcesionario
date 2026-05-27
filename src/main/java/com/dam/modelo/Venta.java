@@ -1,5 +1,7 @@
 package com.dam.modelo;
 
+import com.dam.vista.Auxiliar;
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -190,6 +192,9 @@ public class Venta {
     }
 
     public void modificarMatricula(String matricula) throws Exception {
+        if (!Auxiliar.verificarMatricula(matricula)) {
+            throw new Exception("Matricula incorrecta!!!");
+        }
         String sql = "update vehiculos set matricula = ? where id = ?";
         try (PreparedStatement pst = ConexionBD.getConexionBD().prepareStatement(sql)) {
             pst.setString(1, matricula);
