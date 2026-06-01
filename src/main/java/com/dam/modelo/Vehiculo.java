@@ -133,9 +133,12 @@ public class Vehiculo {
         if (existeVehiculo()) {
             throw new Exception("El vehiculo ya existe");
         }
-        if (!Auxiliar.verificarMatricula(matricula)) {
-            throw new Exception("Matricula incorrecta");
+        if (tipo == Tipo.SEGUNDAMANO) {
+            if (!Auxiliar.verificarMatricula(matricula)) {
+                throw new Exception("Matricula incorrecta");
+            }
         }
+
     }
 
     public void bajaVehiculo() throws Exception {
